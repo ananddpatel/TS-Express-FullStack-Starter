@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../partials/head %>
+
+<body>
+    <% include ../partials/nav %>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 text-center v-no-padding">
+                <!-- <script type="text/javascript">
+                var ad_idzone = "2859830",
+                        ad_width = "160",
+                        ad_height = "600";
+                </script>
+                <script type="text/javascript" src="https://ads.exdynsrv.com/ads.js"></script>
+                <noscript><a href="https://main.exdynsrv.com/img-click.php?idzone=2859830" target="_blank"><img src="https://syndication.exdynsrv.com/ads-iframe-display.php?idzone=2859830&output=img&type=160x600" width="160" height="600"></a></noscript> -->
+            </div>
+            <div class="col-md-8 v-no-padding">
+                <h3 class="text-center">
+                    <%= clip.title %>
+                </h3>
+                <%if (clip.views > 10) { %>
+                Views: <small class="text-muted">
+                    <%= clip.views %></small>
+                <% } %>
+
+                <div class="col-xs-12 text-center">
+                    <!-- <script type="text/javascript">
+                var ad_idzone = "2859832",
+                        ad_width = "728",
+                        ad_height = "90";
+                </script>
+                <script type="text/javascript" src="https://ads.exdynsrv.com/ads.js"></script>
+                <noscript><a href="https://main.exdynsrv.com/img-click.php?idzone=2859832" target="_blank"><img src="https://syndication.exdynsrv.com/ads-iframe-display.php?idzone=2859832&output=img&type=728x90" width="728" height="90"></a></noscript> -->
+                </div>
+                <div style="width: 100%; height: 0px; position: relative; padding-bottom: 56.250%;">
+                    <iframe style="width: 100%; height: 100%; position: absolute;" 
+                        src="https://streamable.com/s/<%= clip.streamableId %>" width="100%" height="100%" frameborder="0" 
+                        allowfullscreen="allowfullscreen"></iframe>
+                    <!-- <video controls="" loop="" poster="" class="res-media-zoomable res-media-rotatable" style="max-width: 2034.4px; max-height: 837.12px;"
+                    data-chrome-better-html5-video-type="normal">
+                            <source src="https://streamable.com/s/<%= clip.streamableId %>">
+                        </video> -->
+                    <!-- <video controls="" loop="" poster="" class="res-media-zoomable res-media-rotatable" style="max-width: 2034.4px; max-height: 837.12px;"
+                        data-chrome-better-html5-video-type="normal">
+                        <source src="//cdn-b-east.streamable.com/video/mp4/a75xt.mp4?token=3i7CbP3Ipu2R9v4729F7Zw&expires=1538941215"
+                            type="video/mp4"></video> -->
+                            <!-- <iframe class=\"embedly-embed\" src=\"https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fstreamable.com%2Fo%2Fgqo9s&url=https%3A%2F%2Fstreamable.com%2Fgqo9s&image=https%3A%2F%2Fcdn-b-east.streamable.com%2Fimage%2Fgqo9s.jpg%3Ftoken%3DvS58o69eFqKyYZL0f6_HYw%26expires%3D1538925969&key=2aa3c4d5f3de4f5b9120b660ad850dc9&type=text%2Fhtml&schema=streamable\" width=\"600\" height=\"338\" scrolling=\"no\" frameborder=\"0\" allow=\"autoplay; fullscreen\" allowfullscreen=\"true\"></iframe> -->
+                </div>
+                <!-- <div style="width: 100%; height: 0px; position: relative; padding-bottom: 56.250%;">
+                    <iframe src="https://streamable.com/s/<%= clip.streamableId %>" frameborder="0" width="100%" height="100%" allowfullscreen style="width: 100%; height: 100%; position: absolute;"></iframe>
+                </div> -->
+            </div>
+            <div class="col-md-2 text-center v-no-padding">
+                <!-- <script type="text/javascript">
+                var ad_idzone = "2859830",
+                        ad_width = "160",
+                        ad_height = "600";
+                </script>
+                <script type="text/javascript" src="https://ads.exdynsrv.com/ads.js"></script>
+                <noscript><a href="https://main.exdynsrv.com/img-click.php?idzone=2859830" target="_blank"><img src="https://syndication.exdynsrv.com/ads-iframe-display.php?idzone=2859830&output=img&type=160x600" width="160" height="600"></a></noscript> -->
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

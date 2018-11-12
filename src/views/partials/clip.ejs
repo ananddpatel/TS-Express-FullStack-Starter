@@ -1,0 +1,20 @@
+<div class="card mb-3">
+    <div class="card-body">
+        <!-- <h6 class="card-subtitle text-muted">Support card subtitle</h6> -->
+    </div>
+    <a href="/highlight/<%= clip.streamableId %>/<%= clip.slug %>">
+        <img class="img-fluid w-100 h-100" src="<%= clip.thumbnail %>" alt="Card image">
+    </a>
+    <div class="card-body">
+        <h5 class="card-title"><%= clip.title %></h5>
+    </div>
+    <div class="card-body">
+        <a href="/highlight/<%= clip.streamableId %>/<%= clip.slug %>" class="card-link"><i class="fa fa-play-circle"
+                aria-hidden="true"></i> Play</a>
+        <a href="<%= clip.redditPost %>" class="card-link" target="_blank"><i class="fa fa-commenting" aria-hidden="true"></i>
+            Discuss</a>
+    </div>
+    <!-- <div class="card-footer text-muted">
+        2 days ago
+    </div> -->
+</div>
