@@ -9,7 +9,10 @@
     "interface-name": true,
     "no-console": false,
     "no-implicit-dependencies": false,
-    "variable-name": false
+    "variable-name": false,
+    "only-arrow-functions": false,
+    "ban-types": false,
+    "no-angle-bracket-type-assertion": false
   },
   "rulesDirectory": []
 }
