@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { Controller } from '../spring-like/decorators/Controller';
 import { RequestMapping } from '../spring-like/decorators/RequestMapping';
-import { AutoWire } from '../spring-like/decorators/AutoWire';
+import { AutoWired } from '../spring-like/decorators/AutoWired';
 import { HomeService } from "../services/HomeService";
+import { Controller } from '../spring-like/decorators/Sterotype';
 
 @Controller('homeController')
 export class HomeController {
-  @AutoWire
+  @AutoWired
   public homeService: HomeService;
 
   @RequestMapping('/', 'get')

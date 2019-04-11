@@ -1,5 +1,20 @@
 import { SpringLikeUtils as SLU } from "../SpringLikeUtils";
 
+export function Component(name: string = null) {
+  return klassFunc(name);
+}
+
+export function Service(name: string = null) {
+  return klassFunc(name);
+}
+
+export function Repository(name: string = null) {
+  return klassFunc(name);
+}
+
+export function Controller(name: string = null) {
+  return klassFunc(name);
+}
 
 export function klassFunc(name: string) {
   return function (target: Function) {
@@ -7,7 +22,7 @@ export function klassFunc(name: string) {
     const dependency = registry[name];
     const queue = SLU.getDelayedInjectionQueue();
     if (!dependency) {
-      registry[name] = SLU.InstanceFactory(target);
+      registry.set(name, SLU.InstanceFactory(target));
     }
     queue.forEach((item, i, arr) => {
       const [where, propName] = item;

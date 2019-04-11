@@ -1,10 +1,10 @@
-import { Service } from '../spring-like/decorators/Service';
-import { AutoWire } from '../spring-like/decorators/AutoWire';
+import { AutoWired } from '../spring-like/decorators/AutoWired';
 import { HomeRepository } from "../repositories/HomeRepository";
+import { Service } from '../spring-like/decorators/Sterotype';
 
 @Service('homeService')
 export class HomeService {
-  @AutoWire
+  @AutoWired
   public homeRepository: HomeRepository;
   public doThing(): Object {
     return this.homeRepository.getHelloWorld();

@@ -1,4 +1,4 @@
-import { Repository } from '../spring-like/decorators/Repository';
+import { Repository } from "../spring-like/decorators/Sterotype";
 
 @Repository('homeRepository')
 export class HomeRepository {

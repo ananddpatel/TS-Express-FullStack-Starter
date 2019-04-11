@@ -1,10 +1,9 @@
 
 export class SpringLikeUtils {
   static getSpringLikeRegistry(): Map<string, Function> {
-  // static getSpringLikeRegistry(): {[id:string]: Function} {
     const g = <any>global;
     g.__SPRING_LIKE_CONTAINER__ =
-      g.__SPRING_LIKE_CONTAINER__ || {};
+      g.__SPRING_LIKE_CONTAINER__ || new Map<string, Function>();
     return g.__SPRING_LIKE_CONTAINER__;
   }
   
