@@ -8,13 +8,13 @@ export function RequestMapping(path: string, type: 'get' | 'post') {
     const mapping = reqMap.get(path);
     if (!mapping) {
       const registry = SLU.getSpringLikeRegistry();
-      const dependency = registry[name];
+      const dependency = registry.get(name);
       if (!dependency) {
         registry.set(name, SLU.InstanceFactory(target.constructor));
       }
       const method = propertyDesciptor.value;
       propertyDesciptor.value = (...args: any[]) => {
-        const result = method.apply(registry[name], args)
+        const result = method.apply(registry.get(name), args)
         return result;
       };
       reqMap.set(path, [type, propertyDesciptor.value]);

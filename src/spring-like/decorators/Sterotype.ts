@@ -19,15 +19,15 @@ export function Controller(name: string = null) {
 export function klassFunc(name: string) {
   return function (target: Function) {
     const registry = SLU.getSpringLikeRegistry();
-    const dependency = registry[name];
+    const dependency = registry.get(name);
     const queue = SLU.getDelayedInjectionQueue();
     if (!dependency) {
       registry.set(name, SLU.InstanceFactory(target));
     }
     queue.forEach((item, i, arr) => {
       const [where, propName] = item;
-      if (registry[propName]) {
-        registry[where][propName] = registry[propName];
+      if (registry.get(propName)) {
+        registry.get(where)[propName] = registry.get(propName);
         arr.splice(i, 1);
       }
     });
