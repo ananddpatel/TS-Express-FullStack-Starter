@@ -30,4 +30,16 @@ export class SpringLikeUtils {
       g.__DELAYED_INJECTION_QUEUE__ || [];
     return g.__DELAYED_INJECTION_QUEUE__;
   }
+
+  static checkInjectionQueue() {
+    const queue = SpringLikeUtils.getDelayedInjectionQueue();
+    const registry = SpringLikeUtils.getSpringLikeRegistry();
+    queue.forEach((item, i, arr) => {
+      const [autoWireableRegistryKey, autoWirablePropName] = item;
+      if (registry.get(autoWirablePropName)) {
+        registry.get(autoWireableRegistryKey)[autoWirablePropName] = registry.get(autoWirablePropName);
+        arr.splice(i, 1);
+      }
+    });
+  }
 }
