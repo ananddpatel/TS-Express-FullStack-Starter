@@ -16,7 +16,6 @@ const UserSchema = new mongoose.Schema(
   },
   {
     toObject: {
-      // tslint:disable-next-line:variable-name
       transform: (_doc, ret) => {
         delete ret.__v;
       }
@@ -26,7 +25,6 @@ const UserSchema = new mongoose.Schema(
 
 // before saving changes, run this
 UserSchema.pre("save", function(next) {
-  // tslint:disable-next-line:no-this-assignment
   const user = this as any;
   if (this.isModified("password") || this.isNew) {
     bcrypt.genSalt(10, (saltingErr, salt) => {

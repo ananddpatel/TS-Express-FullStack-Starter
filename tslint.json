@@ -3,7 +3,7 @@
   "extends": ["tslint:latest", "tslint-config-prettier"],
   "jsRules": {},
   "rules": {
-    "member-access": true,
+    "member-access": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "interface-name": true,
@@ -12,7 +12,8 @@
     "variable-name": false,
     "only-arrow-functions": false,
     "ban-types": false,
-    "no-angle-bracket-type-assertion": false
+    "no-angle-bracket-type-assertion": false,
+    "array-type":false
   },
   "rulesDirectory": []
 }

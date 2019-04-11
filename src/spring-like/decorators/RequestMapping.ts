@@ -1,28 +1,23 @@
-import { getSpringLikeRequestMapping, getSpringLikeRegistry } from "../util";
+import { SpringLikeUtils as SLU } from "../SpringLikeUtils";
 
-export function RequestMapping(path: string, type: "get" | "post") {
-  const name = "homeController";
 
-  return function(
-    target,
-    propertyName: string,
-    propertyDesciptor: PropertyDescriptor
-  ) {
-    const reqMap = getSpringLikeRequestMapping();
-
+export function RequestMapping(path: string, type: 'get' | 'post') {
+  return function(target, propertyName: string, propertyDesciptor: PropertyDescriptor) {
+    const reqMap = SLU.getSpringLikeRequestMapping();
+    const name = SLU.getAutoWireableName(target);
     const mapping = reqMap.get(path);
     if (!mapping) {
-      // console.log(path, type, propertyDesciptor, target, propertyName);
-      const registry = getSpringLikeRegistry();
-
+      const registry = SLU.getSpringLikeRegistry();
       const dependency = registry[name];
-
       if (!dependency) {
-        registry[name] = target;
-        registry[name] = Object.create(registry[name]);
+        registry[name] = SLU.InstanceFactory(target.constructor);
       }
-      // look inside __SPRING_LIKE_CONTAINER__ for the intiatlized class and give that guy's method otherwise it wont know and will say things are undefined
-      reqMap.set(path, [type, registry[name][propertyName]]);
+      const method = propertyDesciptor.value;
+      propertyDesciptor.value = (...args: any[]) => {
+        const result = method.apply(registry[name], args)
+        return result;
+      };
+      reqMap.set(path, [type, propertyDesciptor.value]);
     }
   };
 }
