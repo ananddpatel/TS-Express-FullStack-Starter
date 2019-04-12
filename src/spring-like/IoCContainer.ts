@@ -1,10 +1,12 @@
 import { SpringLikeUtils as SLU } from "./SpringLikeUtils";
+import * as express from 'express';
+import { RequestHandlerParams } from "express-serve-static-core";
 
 export class IoCContainer {
   app: any;
   providers: Function[] = [];
 
-  constructor(app: any) {
+  constructor(app: any = express()) {
     this.app = app;
     return this;
   }
@@ -14,7 +16,7 @@ export class IoCContainer {
     return this;
   }
 
-  use(middleware: Array<Function> = []) {
+  use(middleware: Array<RequestHandlerParams> = []) {
     middleware.forEach(mw => {
       if (Array.isArray(mw)) {
         this.app.use(...mw);
@@ -49,11 +51,9 @@ export class IoCContainer {
     const entries = reqMap.entries();
     for (const item of entries) {
       const [path, callback] = item;
-      const [type, handlerFunc] = callback;
-      this.app[type](path, handlerFunc)
+      const [type, handlerFunc, middlewares] = callback;
+      this.app[type](path, handlerFunc, ...middlewares)
     }
-    console.info('IoC Container started.')
-
     this.listen();
   }
 

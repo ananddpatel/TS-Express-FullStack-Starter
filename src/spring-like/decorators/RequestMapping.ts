@@ -1,8 +1,19 @@
 import { SpringLikeUtils as SLU } from "../SpringLikeUtils";
 
 
-export function RequestMapping(path: string, httpMethod: 'get' | 'post') {
-  return function(target, propertyName: string, propertyDesciptor: PropertyDescriptor) {
+export function RequestMapping(path: string, httpMethod: 'get' | 'post', middlewares: Array<any> = []) {
+  return registerRequestMapping(path, httpMethod, middlewares);
+}
+export function GetMapping(path: string, middlewares: Array<any> = []) {
+  return registerRequestMapping(path, 'get', middlewares);
+}
+export function PostMapping(path: string, middlewares: Array<any> = []) {
+  return registerRequestMapping(path, 'post', middlewares);
+}
+
+
+function registerRequestMapping(path: string, httpMethod: string, middlewares: Array<any>) {
+  return function (target, propertyName: string, propertyDesciptor: PropertyDescriptor) {
     const reqMap = SLU.getSpringLikeRequestMapping();
     const name = SLU.getAutoWireableName(target);
     const mapping = reqMap.get(path);
@@ -14,10 +25,11 @@ export function RequestMapping(path: string, httpMethod: 'get' | 'post') {
       }
       const method = propertyDesciptor.value;
       propertyDesciptor.value = (...args: any[]) => {
-        const result = method.apply(registry.get(name), args)
+        const result = method.apply(registry.get(name), args);
         return result;
       };
-      reqMap.set(path, [httpMethod, propertyDesciptor.value]);
+      reqMap.set(path, [httpMethod, propertyDesciptor.value, middlewares]);
     }
   };
 }
+

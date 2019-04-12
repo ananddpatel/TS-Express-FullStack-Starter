@@ -13,7 +13,8 @@
     "only-arrow-functions": false,
     "ban-types": false,
     "no-angle-bracket-type-assertion": false,
-    "array-type":false
+    "array-type":false,
+    "max-classes-per-file": false
   },
   "rulesDirectory": []
 }

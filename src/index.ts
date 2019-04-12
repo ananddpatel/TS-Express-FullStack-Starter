@@ -10,9 +10,10 @@ import * as passport from 'passport';
 import { HomeController } from './controllers/HomeController';
 import { passportStrategy } from './passport-strat';
 import { IoCContainer } from './spring-like/IoCContainer';
+import { UserController } from './controllers/UserController';
 
 
-new IoCContainer(express())
+new IoCContainer()
   .use([
     bodyParser.json(),
     bodyParser.urlencoded({ extended: true }),
@@ -21,9 +22,9 @@ new IoCContainer(express())
     passport.initialize()
   ])
   .set([['views', path.join(__dirname, 'views')], ['view engine', 'ejs']])
-  .provide([HomeController])
+  .provide([HomeController, UserController])
   .finalize(() => {
     passportStrategy(passport);
-    // mongoose.connect(process.env.MONGO_URL as string, { useNewUrlParser: true });
+    mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
   })
   .start();

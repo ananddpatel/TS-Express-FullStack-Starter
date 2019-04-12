@@ -7,7 +7,7 @@ export class SpringLikeUtils {
     return g.__SPRING_LIKE_CONTAINER__;
   }
   
-  static getSpringLikeRequestMapping(): Map<string, [string, Function]> {
+  static getSpringLikeRequestMapping(): Map<string, [string, Function, Array<any>]> {
     const g = <any>global;
     g.__SPRING_LIKE_CONTAINER_REQUEST_MAPPINGS__ =
       g.__SPRING_LIKE_CONTAINER_REQUEST_MAPPINGS__ ||
