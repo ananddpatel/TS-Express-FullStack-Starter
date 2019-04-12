@@ -5,8 +5,10 @@ import { Service } from '../spring-like/decorators/Sterotype';
 @Service('homeService')
 export class HomeService {
   @AutoWired
-  public homeRepository: HomeRepository;
+  private homeRepository: HomeRepository;
+
   public doThing(): Object {
     return this.homeRepository.getHelloWorld();
   }
+  
 }
