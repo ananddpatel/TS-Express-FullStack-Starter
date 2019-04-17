@@ -53,9 +53,8 @@ export class IoCContainer {
     for (const item of entries) {
       const [path, requestHandler] = item;
       const [type, handlerFunc, middlewares] = requestHandler;
-      console.log(handlerFunc);
 
-      const observableHandler = (req: Request, res: Response) => {
+      const multiReturnTypeResponseHandler = (req: Request, res: Response) => {
         const controllerResult = handlerFunc(req, res);
         if (controllerResult) {
           const sendResponse = content => res.send(content);
@@ -69,7 +68,7 @@ export class IoCContainer {
         }
       };
 
-      this.app[type](path, observableHandler, ...middlewares);
+      this.app[type](path, multiReturnTypeResponseHandler, ...middlewares);
     }
     this.listen();
   }
