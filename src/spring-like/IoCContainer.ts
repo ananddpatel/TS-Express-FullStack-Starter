@@ -1,6 +1,7 @@
-import { SpringLikeUtils as SLU } from "./SpringLikeUtils";
+import { SpringLikeUtils as SLU } from './SpringLikeUtils';
 import * as express from 'express';
-import { RequestHandlerParams } from "express-serve-static-core";
+import { RequestHandlerParams, Response } from 'express-serve-static-core';
+import { Observable } from 'rxjs';
 
 export class IoCContainer {
   app: any;
@@ -21,9 +22,9 @@ export class IoCContainer {
       if (Array.isArray(mw)) {
         this.app.use(...mw);
       } else {
-        this.app.use(mw)
+        this.app.use(mw);
       }
-    })
+    });
     return this;
   }
 
@@ -32,7 +33,7 @@ export class IoCContainer {
       if (Array.isArray(prop)) {
         this.app.set(...prop);
       }
-    })
+    });
     return this;
   }
 
@@ -46,13 +47,28 @@ export class IoCContainer {
 
     this.providers.forEach(p => {
       SLU.InstanceFactory(p);
-    })
+    });
 
     const entries = reqMap.entries();
     for (const item of entries) {
-      const [path, callback] = item;
-      const [type, handlerFunc, middlewares] = callback;
-      this.app[type](path, handlerFunc, ...middlewares)
+      const [path, requestHandler] = item;
+      const [type, handlerFunc, middlewares] = requestHandler;
+
+      const multiReturnTypeResponseHandler = (req: Request, res: Response) => {
+        const controllerResult = handlerFunc(req, res);
+        if (controllerResult) {
+          const sendResponse = content => res.send(content);
+          if (controllerResult instanceof Observable) {
+            controllerResult.subscribe(sendResponse);
+          } else if (controllerResult instanceof Promise) {
+            controllerResult.then(sendResponse);
+          } else {
+            sendResponse(controllerResult);
+          }
+        }
+      };
+
+      this.app[type](path, multiReturnTypeResponseHandler, ...middlewares);
     }
     this.listen();
   }
